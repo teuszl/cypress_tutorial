@@ -18,4 +18,16 @@ describe('Create post, mark as favorite, then unfavorite', function(){
         cy.get(':nth-child(4) > .form-control').type('myTag').should('have.value', 'myTag');
         cy.get('.btn').contains('Publish Article').click();
     })
+
+    it('Verify if post is saved', function(){
+        cy.hash().should('include', '#/article');
+        cy.get('h1').should('have.text', 'myTitle');
+        cy.get('p').should('have.text', 'myArticle');
+    })
+
+    it('Mark as favorite', function(){
+        cy.get(':nth-child(4) > .nav-link').should('be.visible').click();
+        cy.hash().should('include','#/@Teusz');
+        cy.get(':nth-child(1) > .article-meta > .pull-xs-right > .btn').should('be.visible').click().should('have.css', 'background-color', 'rgb(92, 184, 92)');
+    })
 })
